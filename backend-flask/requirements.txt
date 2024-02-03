@@ -6,7 +6,3 @@ opentelemetry-sdk
 opentelemetry-exporter-otlp-proto-http
 opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-requests
-
-OTEL_SERVICE_NAME=backend-flask
-HONEYCOMB_API_KEY=WceDzLllzsQNRWm8ohey8G
-opentelemetry-instrument python myapp.py
