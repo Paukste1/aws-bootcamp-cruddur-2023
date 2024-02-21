@@ -20,7 +20,6 @@ export default function ProfileInfo(props) {
         console.log('error signing out: ', error);
     }
   }
-
   const classes = () => {
     let classes = ["profile-info-wrapper"];
     if (popped == true){
