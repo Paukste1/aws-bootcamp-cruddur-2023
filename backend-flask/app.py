@@ -3,8 +3,6 @@ from flask import request
 from flask_cors import CORS, cross_origin
 import os
 
-from flask_awscognito import AwsCognitoAuthentication
-
 from services.home_activities import *
 from services.user_activities import *
 from services.create_activity import *
@@ -47,11 +45,6 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
-
-app.config['AWS_COGNITO_USER_POOL_ID'] = os.getenv("AWS_COGNITO_USER_POOL_ID")
-app.config['AWS_COGNITO_USER_POOL_CLIENT_ID'] = os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID")
-
-aws_auth = AwsCognitoAuthentication(app)
 
 # X-RAY___________
 XRayMiddleware(app, xray_recorder)
@@ -133,7 +126,6 @@ def data_create_message():
 
 @app.route("/api/activities/home", methods=['GET'])
 @xray_recorder.capture('activities_home')
-@aws_auth.authentication_required
 def data_home():
   data = HomeActivities.run()
   claims = aws_auth.claims
