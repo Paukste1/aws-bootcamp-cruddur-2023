@@ -80,11 +80,11 @@ frontend = os.getenv('FRONTEND_URL')
 backend = os.getenv('BACKEND_URL')
 origins = [frontend, backend]
 cors = CORS(
-  app, 
-  resources={r"/api/*": {"origins": origins}},
-  headers=['Content-Type', 'Authorization'], 
-  expose_headers='Authorization',
-  methods="OPTIONS,GET,HEAD,POST"
+    app, 
+    resources={r"/api/*": {"origins": origins}},
+    headers=['Content-Type', 'Authorization'], 
+    expose_headers=['Authorization'],
+    methods=["OPTIONS,GET,HEAD,POST"]
 )
 
 # CloudWatch Logs -----
@@ -95,7 +95,7 @@ cors = CORS(
 #    return response
 # Rollbar ----------
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
-@app.before_first_request
+@app.before_request
 def init_rollbar():
     """init rollbar module"""
     rollbar.init(
