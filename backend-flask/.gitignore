@@ -1,1 +1,22 @@
 __pycache__/
+
+
+
+
+export CONNECTION_URL="postgresql://postgres:password@127.0.0.1:5432/cruddur"
+gp env CONNECTION_URL="postgresql://postgres:password@127.0.0.1:5432/cruddur"
+
+export PROD_CONNECTION_URL="postgresql://cruddurroot:Ateivis1+@cruddur-db-instance.cf6q4wswcpti.us-east-1.rds.amazonaws.com:5432/cruddur"
+gp env PROD_CONNECTION_URL="postgresql://cruddurroot:Ateivis1+@cruddur-db-instance.cf6q4wswcpti.us-east-1.rds.amazonaws.com:5432/cruddur"
+
+
+sgr-0dee5171c3cb8e792
+
+export DB_SG_ID="sg-0161dc9c892cdb8f4"
+gp env DB_SG_ID="sg-0161dc9c892cdb8f4"
+export DB_SG_RULE_ID="sgr-0dee5171c3cb8e792"
+gp env DB_SG_RULE_ID="sgr-0dee5171c3cb8e792"
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=GITPOD,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
